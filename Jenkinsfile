@@ -10,8 +10,10 @@ pipeline {
         }
         stage('build docker image and push') {
             steps {
-                docker.withRegistry('https://hub.docker.com/', 'docker_credentials') {
-                    docker.build("train-app:${env.BUILD_ID}").push()
+                script {
+                    docker.withRegistry('https://hub.docker.com/', 'docker_credentials') {
+                        docker.build("train-app:${env.BUILD_ID}").push()
+                    }
                 }
             }
         }
