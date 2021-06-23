@@ -11,14 +11,16 @@ pipeline {
         stage('build docker image') {
             steps {
                 script {
-                    docker.build("train-app:${env.BUILD_ID}")
+                    app = docker.build("gabyshev/train-app")
                 }
             }
         }
         stage('push docker image') {
             steps {
                 script {
-                    docker.push("train-app:${env.BUILD_ID}")
+                    docker.withRegistry("https://registry.hub.docker.com", 'docker_credentials') {
+                        app.push("${env.BUILD_ID}")
+                    }
                 }
 
             }
