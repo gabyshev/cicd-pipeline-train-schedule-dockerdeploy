@@ -10,7 +10,7 @@ pipeline {
         }
         stage('build docker image and push') {
             steps {
-                docker.withRegistry('https://docker.mycorp.com/', 'docker-login') {
+                docker.withRegistry('https://docker.mycorp.com/', 'docker_credentials') {
                     docker.build("train-app:${env.BUILD_ID}").push()
                 }
             }
