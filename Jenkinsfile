@@ -8,5 +8,12 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
+        stage('build docker image and push') {
+            steps {
+                docker.withRegistry('https://docker.mycorp.com/', 'docker-login') {
+                    docker.build("train-app:${env.BUILD_ID}").push()
+                }
+            }
+        }
     }
 }
