@@ -17,7 +17,10 @@ pipeline {
         }
         stage('push docker image') {
             steps {
-                docker.push("train-app:${env.BUILD_ID}")
+                script {
+                    docker.push("train-app:${env.BUILD_ID}")
+                }
+
             }
         }
     }
